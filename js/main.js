@@ -1,4 +1,3 @@
-import { guardarRegistroEnSupabase } from "./supabase.js";
 import { construirUrlWhatsApp } from "./whatsapp.js";
 
 document.documentElement.classList.remove("no-js");
@@ -46,12 +45,12 @@ function actualizarEstadoVentanaOficial() {
       1,
       Math.ceil(msRestantes / (1000 * 60 * 60 * 24))
     );
-    statusEl.textContent = `⏳ Tarifa de Inscripción Oficial ($75 MXN) disponible hasta el 30 de noviembre (${diasRestantes} ${
+    statusEl.textContent = `Tarifa de Inscripción Oficial ($75 MXN) disponible hasta el 30 de noviembre (${diasRestantes} ${
       diasRestantes === 1 ? "día" : "días"
     } restantes).`;
   } else {
     statusEl.textContent =
-      "✨ La ventana de Inscripción Oficial de $75 MXN ha concluido; consulta disponibilidad o súmate en Participación Libre por WhatsApp.";
+      "La ventana de Inscripción Oficial de $75 MXN ha concluido; consulta disponibilidad o súmate en Participación Libre por WhatsApp.";
   }
 }
 
@@ -82,7 +81,7 @@ function configurarFormulario() {
 
   if (!form || !btnSubmit || !feedbackEl || !waBoxEl) return;
 
-  form.addEventListener("submit", async (event) => {
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     feedbackEl.textContent = "";
@@ -116,10 +115,6 @@ function configurarFormulario() {
       return;
     }
 
-    btnSubmit.disabled = true;
-    const textoOriginal = btnSubmit.textContent;
-    btnSubmit.textContent = "Guardando registro...";
-
     const payload = {
       nombreCompleto,
       telefonoWhatsApp,
@@ -128,22 +123,11 @@ function configurarFormulario() {
       notas,
     };
 
-    const resultado = await guardarRegistroEnSupabase(payload);
     const urlWhatsApp = construirUrlWhatsApp(payload);
 
-    btnSubmit.disabled = false;
-    btnSubmit.textContent = textoOriginal;
-
-    if (resultado.ok) {
-      feedbackEl.textContent =
-        "¡Listo! Tu registro quedó guardado. Abre WhatsApp para continuar tu seguimiento.";
-      feedbackEl.classList.add("is-success");
-      form.reset();
-    } else {
-      feedbackEl.textContent =
-        "Tu mensaje está listo. Abre WhatsApp para continuar tu seguimiento con el equipo organizador.";
-      feedbackEl.classList.add("is-success");
-    }
+    feedbackEl.textContent =
+      "Tu mensaje está listo. Abre WhatsApp para continuar tu seguimiento con el equipo organizador.";
+    feedbackEl.classList.add("is-success");
 
     waBoxEl.innerHTML = `
       <p style="margin:0; font-weight:600;">Paso final: envía tu seguimiento por WhatsApp</p>
