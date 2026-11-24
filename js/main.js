@@ -31,6 +31,44 @@ function iniciarAnimacionesScroll() {
   elementos.forEach((el) => observer.observe(el));
 }
 
+function iniciarNieveNavidena() {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (prefersReduced) return;
+
+  const capaNieve = document.createElement("div");
+  capaNieve.className = "snow-layer";
+  capaNieve.setAttribute("aria-hidden", "true");
+
+  const simbolos = ["❄", "❅", "•"];
+  const cantidadCopos = window.innerWidth < 640 ? 12 : 20;
+
+  for (let i = 0; i < cantidadCopos; i++) {
+    const copo = document.createElement("span");
+    copo.className = "snowflake";
+    copo.textContent = simbolos[i % simbolos.length];
+
+    const izquierda = Math.random() * 100;
+    const duracion = 8 + Math.random() * 9;
+    const retraso = Math.random() * -12;
+    const tamano = 0.65 + Math.random() * 0.75;
+
+    copo.style.left = `${izquierda}%`;
+    copo.style.animationDuration = `${duracion}s`;
+    copo.style.animationDelay = `${retraso}s`;
+    copo.style.fontSize = `${tamano}rem`;
+    copo.style.opacity = `${0.35 + Math.random() * 0.45}`;
+
+    capaNieve.appendChild(copo);
+  }
+
+  hero.prepend(capaNieve);
+}
+
 function actualizarEstadoVentanaOficial() {
   const statusEl = document.getElementById("estado-ventana-registro");
   if (!statusEl) return;
@@ -54,16 +92,16 @@ function actualizarEstadoVentanaOficial() {
   }
 }
 
-function configurarSelectoresInteres() {
-  const triggers = document.querySelectorAll("[data-select-interes]");
-  const selectInteres = document.getElementById("interes_inicial");
-  if (!triggers.length || !selectInteres) return;
+function configurarSelectoresModalidad() {
+  const triggers = document.querySelectorAll("[data-select-modalidad]");
+  const selectModalidad = document.getElementById("tipo_registro");
+  if (!triggers.length || !selectModalidad) return;
 
   triggers.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const valor = btn.getAttribute("data-select-interes");
+      const valor = btn.getAttribute("data-select-modalidad");
       if (valor) {
-        selectInteres.value = valor;
+        selectModalidad.value = valor;
       }
     });
   });
@@ -75,11 +113,10 @@ function limpiarTelefono(valor) {
 
 function configurarFormulario() {
   const form = document.getElementById("registro-form");
-  const btnSubmit = document.getElementById("btn-submit");
   const feedbackEl = document.getElementById("form-feedback");
   const waBoxEl = document.getElementById("whatsapp-action-box");
 
-  if (!form || !btnSubmit || !feedbackEl || !waBoxEl) return;
+  if (!form || !feedbackEl || !waBoxEl) return;
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -92,12 +129,9 @@ function configurarFormulario() {
     const nombreCompleto = form.nombre_completo.value.trim();
     const telefonoWhatsApp = form.telefono_whatsapp.value.trim();
     const digitosTelefono = limpiarTelefono(telefonoWhatsApp);
-    const interesInicial = form.interes_inicial
-      ? form.interes_inicial.value
+    const tipoRegistro = form.tipo_registro
+      ? form.tipo_registro.value
       : "inscripcion_oficial_75";
-    const desafiosInteres = form.desafios_interes
-      ? form.desafios_interes.value
-      : "4.3k_y_desafio_final";
     const notas = form.notas ? form.notas.value.trim() : "";
 
     if (nombreCompleto.length < 2) {
@@ -115,29 +149,29 @@ function configurarFormulario() {
       return;
     }
 
-    const payload = {
+    const urlWhatsApp = construirUrlWhatsApp({
       nombreCompleto,
       telefonoWhatsApp,
-      interesInicial,
-      desafiosInteres,
+      tipoRegistro,
       notas,
-    };
+    });
 
-    const urlWhatsApp = construirUrlWhatsApp(payload);
+    // Apertura directa en un solo paso
+    const ventana = window.open(urlWhatsApp, "_blank", "noopener,noreferrer");
 
-    feedbackEl.textContent =
-      "Tu mensaje está listo. Abre WhatsApp para continuar tu seguimiento con el equipo organizador.";
+    feedbackEl.textContent = ventana
+      ? "Abriendo WhatsApp con tu mensaje listo..."
+      : "Si WhatsApp no se abrió automáticamente, usa el enlace de abajo:";
     feedbackEl.classList.add("is-success");
 
     waBoxEl.innerHTML = `
-      <p style="margin:0; font-weight:600;">Paso final: envía tu seguimiento por WhatsApp</p>
       <a
         href="${urlWhatsApp}"
         target="_blank"
         rel="noopener noreferrer"
         class="btn btn-primary btn-full"
       >
-        Abrir chat de WhatsApp ahora
+        Abrir WhatsApp ahora
       </a>
     `;
     waBoxEl.hidden = false;
@@ -146,7 +180,8 @@ function configurarFormulario() {
 
 document.addEventListener("DOMContentLoaded", () => {
   iniciarAnimacionesScroll();
+  iniciarNieveNavidena();
   actualizarEstadoVentanaOficial();
-  configurarSelectoresInteres();
+  configurarSelectoresModalidad();
   configurarFormulario();
 });
