@@ -60,3 +60,87 @@
   opacity: 1;
   transform: none;
 }
+
+/* Contenedor de copos de nieve dentro del Hero */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.snow-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10%;
+  color: rgba(248, 249, 250, 0.55);
+  font-size: 1rem;
+  user-select: none;
+  animation: snowfall linear infinite;
+  will-change: transform;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(45vh) translateX(18px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(105vh) translateX(-12px) rotate(360deg);
+  }
+}
+
+/* Pulso energético en el CTA principal */
+@keyframes pulseEnergy {
+  0%, 100% {
+    box-shadow: 0 10px 24px rgba(247, 151, 26, 0.32);
+  }
+  50% {
+    box-shadow: 0 14px 32px rgba(247, 151, 26, 0.58);
+  }
+}
+
+.hero .btn-primary {
+  animation: pulseEnergy 2.6s ease-in-out infinite;
+}
+
+/* Hover dinámico en tarjetas deportivas */
+.info-card,
+.plan-card {
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-fast);
+}
+
+.info-card:hover,
+.plan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(11, 42, 102, 0.14);
+}
+
+/* Respeto a movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .snow-layer,
+  .snowflake {
+    display: none;
+  }
+
+  .hero .btn-primary {
+    animation: none;
+  }
+
+  .info-card:hover,
+  .plan-card:hover {
+    transform: none;
+  }
+}
