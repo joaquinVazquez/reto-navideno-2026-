@@ -1,0 +1,9 @@
+# Archivos de sistema y editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# Variables de entorno locales (si llegas a usar)
+.env
+.env.local

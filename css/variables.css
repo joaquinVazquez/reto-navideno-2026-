@@ -1,0 +1,33 @@
+:root {
+  /* Paleta Oficial del Reto Navideño DIF UNISA Panther 2026 */
+  --color-rojo-dif: #ED014F;
+  --color-blanco-nieve: #F8F9FA;
+  --color-dorado: #C89B3C;
+  --color-azul-unisa: #0B2A66;
+  --color-verde-pino: #0B5D3B;
+  --color-naranja-energia: #F7971A;
+  --color-grafito: #1F1A20;
+
+  /* Superficies y textos por defecto */
+  --bg-page: var(--color-blanco-nieve);
+  --bg-surface: #FFFFFF;
+  --text-primary: var(--color-grafito);
+  --text-muted: #4A444D;
+  --border-subtle: rgba(31, 26, 32, 0.12);
+
+  /* Tipografías */
+  --font-display: 'Anton', 'Montserrat', sans-serif;
+  --font-heading: 'Montserrat', 'Poppins', sans-serif;
+  --font-body: 'Open Sans', 'Montserrat', sans-serif;
+
+  /* Radios, sombras y transiciones */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 12px 30px rgba(11, 42, 102, 0.08);
+  --shadow-cta: 0 10px 24px rgba(247, 151, 26, 0.32);
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
