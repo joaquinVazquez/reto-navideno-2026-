@@ -173,10 +173,70 @@ a {
 }
 
 .hero-lead {
-  margin: 0 0 1.65rem;
+  margin: 0 0 1.45rem;
   font-size: 1.05rem;
   color: rgba(248, 249, 250, 0.92);
   max-width: 60ch;
+}
+
+/* Contador regresivo en 3 columnas */
+.countdown-box {
+  background-color: rgba(248, 249, 250, 0.08);
+  border: 1px solid rgba(200, 155, 60, 0.45);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+  margin-bottom: 1.5rem;
+  max-width: 540px;
+}
+
+.countdown-label {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #FFE5A3;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.countdown-item {
+  background-color: rgba(8, 30, 73, 0.75);
+  border: 1px solid rgba(248, 249, 250, 0.16);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.5rem;
+  text-align: center;
+}
+
+.countdown-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
+  line-height: 1.05;
+  color: var(--color-blanco-nieve);
+}
+
+.countdown-unit {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-dorado);
+}
+
+.countdown-seconds {
+  margin: 0.65rem 0 0;
+  font-size: 0.86rem;
+  color: rgba(248, 249, 250, 0.88);
+  text-align: right;
 }
 
 .hero-actions {

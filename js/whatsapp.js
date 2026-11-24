@@ -1,4 +1,4 @@
-const WHATSAPP_NUMERO_ORGANIZACION = "5219670000000"; // Reemplaza con tu número real
+const WHATSAPP_NUMERO_ORGANIZACION = "5219921393565"; // Reemplaza con tu número real
 
 const ETIQUETAS_MODALIDAD = {
   inscripcion_oficial_75: "Inscripción Oficial ($75 MXN hasta el 30 de noviembre)",

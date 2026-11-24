@@ -63,7 +63,7 @@
           <h1 class="hero-title">
             RETO NAVIDEÑO <span>UNISA PANTHER 2026</span>
           </h1>
-          <p class="hero-slogan">La ultima carrera del año.</p>
+          <p class="hero-slogan">La última carrera del año.</p>
           <p class="hero-lead">
             Este 20 de diciembre cerramos el año demostrando de qué estamos hechos.
             Una experiencia recreativa, familiar y sin cronómetro de
@@ -71,11 +71,41 @@
             con <strong>Circuito funcional</strong>  en campo.
           </p>
 
+          <!-- Contador regresivo en 3 columnas hacia el 20 de diciembre de 2026 (7:00 a.m.) -->
+          <div class="countdown-box" aria-label="Cuenta regresiva para la carrera">
+            <p class="countdown-label">Cuenta regresiva para la salida · 20 de diciembre, 7:00 a.m.</p>
+            <div class="countdown-grid">
+              <div class="countdown-item">
+                <span id="cd-dias" class="countdown-num">00</span>
+                <span class="countdown-unit">Días</span>
+              </div>
+              <div class="countdown-item">
+                <span id="cd-horas" class="countdown-num">00</span>
+                <span class="countdown-unit">Horas</span>
+              </div>
+              <div class="countdown-item">
+                <span id="cd-minutos" class="countdown-num">00</span>
+                <span class="countdown-unit">Minutos</span>
+              </div>
+            </div>
+            <p id="cd-segundos-line" class="countdown-seconds">
+              Segundos en vivo: <strong id="cd-segundos">00s</strong>
+            </p>
+          </div>
+
           <div class="hero-actions">
-            <a href="#registro" class="btn btn-primary">
+            <a
+              href="#registro"
+              data-select-modalidad="inscripcion_oficial_75"
+              class="btn btn-primary"
+            >
               Inscripción Oficial · $75 (Hasta el 30 nov)
             </a>
-            <a href="#registro" class="btn btn-primary">
+            <a
+              href="#registro"
+              data-select-modalidad="participacion_libre"
+              class="btn btn-primary"
+            >
               Participación Libre · $0
             </a>
             <a href="#modalidades" class="btn btn-secondary">
@@ -117,6 +147,11 @@
 
         <div class="cards-grid">
           <article class="info-card reveal-on-scroll is-visible">
+            <img
+              src="assets/media/recorrido_4k.webp"
+              alt="Personas trotando al aire libre en la mañana en un recorrido recreativo"
+              class="card-media-contain"
+            />
             <span class="card-tag tag-blue">Recorrido Base · 4.3 km</span>
             <h3>De UNISA a la Unidad Deportiva</h3>
             <p>
@@ -126,6 +161,11 @@
           </article>
 
           <article class="info-card reveal-on-scroll is-visible">
+            <img
+              src="assets/media/circuito-funcional.webp"
+              alt="Entrenamiento funcional al aire libre con ejercicios de fuerza y movimiento corporal"
+              class="card-media-contain"
+            />
             <span class="card-tag tag-green">Desafío Final · En Campo</span>
             <h3>3 estaciones funcionales a tu ritmo</h3>
             <p>
@@ -136,13 +176,18 @@
 
         <div
           class="route-strip reveal-on-scroll is-visible"
-          style="margin-top: 1.5rem; padding: 1rem 1.25rem; border-radius: var(--radius-md); background: rgba(11, 42, 102, 0.06); display: flex; justify-content: space-around; flex-wrap: wrap; gap: 0.75rem; font-weight: 700; color: var(--color-azul-unisa);"
+          style="margin-top: 1.5rem; padding: 1rem 1.25rem; border-radius: var(--radius-md); background: rgba(11, 42, 102, 0.06); display: flex; flex-direction: column; gap: 0.5rem; font-weight: 700; color: var(--color-azul-unisa);"
         >
-          <span>Salida: UNISA (7:00 a.m.)</span>
-          <span>➔</span>
-          <span>4.3 km a tu ritmo</span>
-          <span>➔</span>
-          <span>Meta Unidad Deportiva + 3 Estaciones Funcionales</span>
+          <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 0.75rem;">
+            <span>Salida: UNISA (7:00 a.m.)</span>
+            <span>➔</span>
+            <span>4.3 km a tu ritmo</span>
+            <span>➔</span>
+            <span>Meta Unidad Deportiva + 3 Estaciones Funcionales</span>
+          </div>
+          <div class="route-pace-track" aria-hidden="true">
+            <div class="route-pace-runner"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -246,7 +291,6 @@
               </option>
             </select>
           </div>
-
 
           <div class="form-group">
             <label for="notas">Comentario o duda (opcional)</label>

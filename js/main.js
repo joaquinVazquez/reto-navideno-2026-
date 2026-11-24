@@ -69,6 +69,56 @@ function iniciarNieveNavidena() {
   hero.prepend(capaNieve);
 }
 
+function iniciarContadorCarrera() {
+  const diasEl = document.getElementById("cd-dias");
+  const horasEl = document.getElementById("cd-horas");
+  const minutosEl = document.getElementById("cd-minutos");
+  const segundosEl = document.getElementById("cd-segundos");
+  const segundosLineEl = document.getElementById("cd-segundos-line");
+
+  if (!diasEl || !horasEl || !minutosEl || !segundosEl) return;
+
+  // Domingo 20 de diciembre de 2026 a las 7:00 a.m. (hora local)
+  const fechaSalida = new Date(2026, 11, 20, 7, 0, 0);
+
+  const render = () => {
+    const ahora = new Date();
+    const diff = fechaSalida - ahora;
+
+    if (diff <= 0) {
+      diasEl.textContent = "00";
+      horasEl.textContent = "00";
+      minutosEl.textContent = "00";
+      segundosEl.textContent = "00s";
+      if (segundosLineEl) {
+        segundosLineEl.textContent = "¡La jornada ha iniciado!";
+      }
+      return false;
+    }
+
+    const totalSegundos = Math.floor(diff / 1000);
+    const dias = Math.floor(totalSegundos / 86400);
+    const horas = Math.floor((totalSegundos % 86400) / 3600);
+    const minutos = Math.floor((totalSegundos % 3600) / 60);
+    const segundos = totalSegundos % 60;
+
+    diasEl.textContent = String(dias).padStart(2, "0");
+    horasEl.textContent = String(horas).padStart(2, "0");
+    minutosEl.textContent = String(minutos).padStart(2, "0");
+    segundosEl.textContent = `${String(segundos).padStart(2, "0")}s`;
+
+    return true;
+  };
+
+  if (render()) {
+    const timer = setInterval(() => {
+      if (!render()) {
+        clearInterval(timer);
+      }
+    }, 1000);
+  }
+}
+
 function actualizarEstadoVentanaOficial() {
   const statusEl = document.getElementById("estado-ventana-registro");
   if (!statusEl) return;
@@ -181,6 +231,7 @@ function configurarFormulario() {
 document.addEventListener("DOMContentLoaded", () => {
   iniciarAnimacionesScroll();
   iniciarNieveNavidena();
+  iniciarContadorCarrera();
   actualizarEstadoVentanaOficial();
   configurarSelectoresModalidad();
   configurarFormulario();
